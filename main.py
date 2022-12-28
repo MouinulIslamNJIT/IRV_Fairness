@@ -3,8 +3,8 @@ from run import runRealData, runDummyData
 
 def main():
     # To test on real dataset specify input file directory
-    path = "Data/USIRV"
-    #path = "Data/NSW"
+    #path = "Data/USIRV"
+    path = "Data/NSW"
     runRealData(path)
 
 
