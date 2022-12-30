@@ -1,7 +1,7 @@
 import heapq as heap
-from  LRM import LRM
-from DistanceToPi import distanceToPi
-from BlomLB import blomLB
+from  LRM_addition import LRM
+from DistanceToPi_addition import distanceToPi
+from BlomLB_addition import blomLB
 
 
 class BlomMargin:

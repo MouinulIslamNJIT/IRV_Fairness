@@ -15,6 +15,6 @@ def blomLB(B,C,pi):
         B_prime = projectedBallots(B,S)
         delta_S = findTally(B_prime,C)
         for c in pi:
-            lb2 = (F[e] - delta_S[c])/2
+            lb2 = (F[e] - delta_S[c])
             LB = max(LB,lb2)
     return math.ceil(LB)

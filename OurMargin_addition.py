@@ -1,14 +1,16 @@
 
 import heapq as heap
-from  LRM import LRM
-from DistanceToPi import distanceToPi
-from BlomLB import blomLB
-from OurLB import OurLB
+from  LRM_addition import LRM
+from DistanceToPi_addition import distanceToPi
+from BlomLB_addition import blomLB
+from OurLB_addition import OurLB
+from distanceToExact_addition import distanceToPiExact
 
 class OurMargin:
     def __init__(self):
         self.nodeExplored = 0
         self.numLP = 0
+        self.lbNotEq = 0
 
     def marginOurs(self,C,B,cw):
         Q = []
@@ -35,7 +37,13 @@ class OurMargin:
             if m >= U:
                 return U
             self.numLP = self.numLP + 1
-            return distanceToPi(B,pi)
+            #m = OurLB(B, pi)
+            m1 = distanceToPi(B, pi)
+            m2 = distanceToPiExact(B,pi)
+            if m2 != m1:
+                print("not equal")
+                self.lbNotEq = self.lbNotEq + 1
+            return m2
         else:
             C_pi = set(C) - set(pi)
             for c in C_pi:
@@ -45,8 +53,13 @@ class OurMargin:
                 l_new = blomLB(B,C,pi_prime)
                 l_prime = max(l,l_new)
                 if l_prime < U:
-                    m = OurLB(B,pi_prime)
-                    l_prime = max(l_prime,m)
+                    m = OurLB(B, pi_prime)
+                    m1 = distanceToPi(B, pi_prime)
+                    m2 = distanceToPiExact(B,pi_prime)
+                    if m2 != m1:
+                        print("not equal")
+                        self.lbNotEq = self.lbNotEq + 1
+                    l_prime = max(l_prime,m2)
                 if l_prime < U:
                     heap.heappush(Q,[l_prime,pi_prime])
         return U

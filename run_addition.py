@@ -5,9 +5,9 @@ import os
 import timeit
 from ProcessInput import readInput,createDummyInput
 from Utils import IRV
-from BlomMargin import BlomMargin
-from OurMargin import OurMargin
-from LRM import LRM
+from BlomMargin_addition import BlomMargin
+from OurMargin_addition import OurMargin
+from LRM_addition import LRM
 
 
 
@@ -25,7 +25,8 @@ def runRealData(path):
              "Our_number_LPS," \
              "Blom_number_LPS," \
              "Our_number_node_explored," \
-             "Blom_number_node_explored\n"
+             "Blom_number_node_explored," \
+             "Our_lb_worng\n"
 
 
     f = open("result.csv", "w")
@@ -39,8 +40,8 @@ def runRealData(path):
 
     dir_list = os.listdir(path)
     print(dir_list)
-
-    dir_list = ['Aspen_2009_CityCouncil.txt']
+    #dir_list = ['Berkeley_2010_D1CityCouncil.txt']
+    #dir_list = ['Berkeley_2010_D1CityCouncil.txt']
 
     for inputfile in dir_list:
 
@@ -115,7 +116,8 @@ def runRealData(path):
         result =  result + str(ourMargin.numLP) + ","
         result =  result + str(blomMargin.numLP) + ","
         result =  result + str(ourMargin.nodeExplored) + ","
-        result =  result + str(blomMargin.nodeExplored) + "\n"
+        result =  result + str(blomMargin.nodeExplored) + ","
+        result = result + str(ourMargin.lbNotEq) + "\n"
 
         f.write(result)
 
@@ -217,8 +219,8 @@ def runDummyData(numIt,numCand,numSig,bsize,fixed,bPerSig):
 
     f.close()
 
-path = "USIRV"
-#path = "NSW"
+#path = "USIRV"
+path = "NSW"
 
 runRealData(path)
 

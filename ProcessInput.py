@@ -60,26 +60,19 @@ def createDummyInput(numCand,numSig,bsize,fixed,bPerSig,it):
     C = [i + 1 for i in range(numCand)]
 
     B = {}
-    load = False
-    fname = "Data/test1.pickle"
-    if load:
-        print(fname)
-        bpkl = open(fname, 'rb')
-        B = pickle.load(bpkl)
-        return B,C
-    else:
-        for i in range(numSig):
-            if fixed:
-                bs = bsize
-            else:
-                bs = random.randint(1,bsize)
 
-            b = random.sample(range(1, numCand + 1), bs)
-            B[tuple(b)] = random.randint(0, bPerSig)
+    for i in range(numSig):
+        if fixed:
+            bs = bsize
+        else:
+            bs = random.randint(1,bsize+1)
+
+        b = random.sample(range(1, numCand + 1), bs)
+        B[tuple(b)] = random.randint(0, bPerSig)
 
 
-        print(fname)
-        bpkl = open(fname, 'wb')
-        pickle.dump(B,bpkl)
+    # fname = "Dummy/vary_bs/B_n="+ str(numCand) +"_bs="+str(bsize)+"_it="+str(it)+".pickle"
+    # bpkl = open(fname, 'wb')
+    # pickle.dump(B,bpkl)
 
     return B,C

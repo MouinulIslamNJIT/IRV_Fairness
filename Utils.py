@@ -5,13 +5,9 @@ def IRV(B, C):
     n = len(C)
     pi = []
     C_pi = set(C) - set(pi)
-    round = 0
     while (len(C_pi) != 1):
-        round = round + 1
-        print("round = ",round)
         B_prime = projectedBallots(B, C_pi)
         T = findTally(B_prime, C_pi)
-        print("Tally = ",T)
         e = min(T, key=T.get)
         pi.append(e)
         C_pi = set(C) - set(pi)
@@ -34,20 +30,6 @@ def projectedBallots(ballots,pi):
     return newBallots
 
 
-def projectedBallotsAndTally(ballots,pi,e):
-    newBallots = {}
-    T = {}
-    for i in pi:
-        T[i] = 0
-    for signature,count in ballots.items():
-        newSignature = []
-        for candidate in signature:
-            if candidate in pi:
-                T[candidate] = T[candidate] + count
-                break
-            if candidate == e:
-                break
-    return T
 
 def findTally(B,C):
     T = {}
